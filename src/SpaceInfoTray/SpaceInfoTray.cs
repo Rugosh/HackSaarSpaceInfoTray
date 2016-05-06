@@ -46,15 +46,20 @@ namespace MyTrayApp {
         }
 
         private void CheckSpaceState(object sender, EventArgs e) {
-            WebClient client = new WebClient();
-            Stream stream = client.OpenRead(spaceApiStatus);
-            StreamReader reader = new StreamReader(stream);
-            String content = reader.ReadToEnd();
+            try {
+                WebClient client = new WebClient();
+                Stream stream = client.OpenRead(spaceApiStatus);
+                StreamReader reader = new StreamReader(stream);
+                String content = reader.ReadToEnd();
 
-            if (content.Equals("1")) {
-                trayIcon.Icon = spaceOpenIcon;
-            } else {
-                trayIcon.Icon = spaceClosedIcon;
+                if (content.Equals("1")) {
+                    trayIcon.Icon = spaceOpenIcon;
+                } else {
+                    trayIcon.Icon = spaceClosedIcon;
+                }
+            } catch (Exception ex) {
+                // ignore Exception and set Error State
+                trayIcon.Icon = spaceStateErrorIcon;
             }
         }
 
