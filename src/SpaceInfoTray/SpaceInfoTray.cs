@@ -37,12 +37,18 @@ namespace MyTrayApp {
             trayIcon.ContextMenu = trayMenu;
             trayIcon.Visible = true;
 
+            trayIcon.DoubleClick += OpenSpaceHomepage;
+
             spaceStateCheckTimer = new Timer();
             spaceStateCheckTimer.Interval = 10000;
             spaceStateCheckTimer.Tick += CheckSpaceState;
             spaceStateCheckTimer.Enabled = true;
 
             CheckSpaceState(null, null);
+        }
+
+        private void OpenSpaceHomepage(object sender, EventArgs e) {
+            System.Diagnostics.Process.Start("http://hacksaar.de");
         }
 
         private void CheckSpaceState(object sender, EventArgs e) {
